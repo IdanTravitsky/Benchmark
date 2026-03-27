@@ -65,23 +65,23 @@ function parseCSVLine(line) {
 // ============================================
 
 const CATEGORIES = {
-    performance: { label: 'Performance', color: '#58a6ff' },
-    cpu_temp: { label: 'CPU Temperature', color: '#f85149' },
-    gpu_temp: { label: 'GPU Temperature', color: '#ff7b72' },
-    cpu_clock: { label: 'CPU Clocks', color: '#58a6ff' },
-    gpu_clock: { label: 'GPU Clocks', color: '#bc8cff' },
-    cpu_usage: { label: 'CPU Usage', color: '#3fb950' },
-    gpu_usage: { label: 'GPU Usage', color: '#39d2c0' },
-    cpu_power: { label: 'CPU Power', color: '#d29922' },
-    gpu_power: { label: 'GPU Power', color: '#f778ba' },
-    memory: { label: 'Memory', color: '#bc8cff' },
-    storage: { label: 'Storage', color: '#8b949e' },
-    fans: { label: 'Fans & Cooling', color: '#39d2c0' },
-    voltage: { label: 'Voltages', color: '#d29922' },
-    throttle: { label: 'Throttling & Limits', color: '#f85149' },
-    pcie: { label: 'PCIe', color: '#8b949e' },
-    network: { label: 'Network', color: '#8b949e' },
-    other: { label: 'Other', color: '#484f58' },
+    performance: { label: 'Performance', color: '#6aafcf' },
+    cpu_temp: { label: 'CPU Temperature', color: '#c06050' },
+    gpu_temp: { label: 'GPU Temperature', color: '#b07a8a' },
+    cpu_clock: { label: 'CPU Clocks', color: '#6aafcf' },
+    gpu_clock: { label: 'GPU Clocks', color: '#8a7ab8' },
+    cpu_usage: { label: 'CPU Usage', color: '#5a9a5a' },
+    gpu_usage: { label: 'GPU Usage', color: '#5a9a9a' },
+    cpu_power: { label: 'CPU Power', color: '#b89a3a' },
+    gpu_power: { label: 'GPU Power', color: '#b07a8a' },
+    memory: { label: 'Memory', color: '#8a7ab8' },
+    storage: { label: 'Storage', color: '#777' },
+    fans: { label: 'Fans & Cooling', color: '#5a9a9a' },
+    voltage: { label: 'Voltages', color: '#b89a3a' },
+    throttle: { label: 'Throttling & Limits', color: '#c06050' },
+    pcie: { label: 'PCIe', color: '#777' },
+    network: { label: 'Network', color: '#777' },
+    other: { label: 'Other', color: '#555' },
 };
 
 function classifyColumn(name) {
@@ -708,10 +708,8 @@ function renderAlerts(anomalies) {
     }
     section.classList.remove('hidden');
 
-    const iconSvg = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>`;
-
     section.innerHTML = `
-        <div class="alerts-header">${iconSvg} ${anomalies.length} item${anomalies.length > 1 ? 's' : ''} to review</div>
+        <div class="alerts-header">${anomalies.length} item${anomalies.length > 1 ? 's' : ''} to review</div>
         ${anomalies.map(a => `
             <div class="alert-item">
                 <div class="alert-dot ${a.severity}"></div>
@@ -776,12 +774,12 @@ function renderMetrics(analysis) {
                       avgFPS >= 30 ? { text: 'Playable', class: 'badge-warn' } :
                       { text: 'Low', class: 'badge-bad' };
 
-        panel('Performance', '#58a6ff', badge, [
+        panel('Performance', '#6aafcf', badge, [
             { label: 'Avg FPS', value: avgFPS.toFixed(1), colorClass: 'color-blue', range: `Min ${s.fps.min.toFixed(0)} / Max ${s.fps.max.toFixed(0)}` },
             { label: 'Avg Frame Time', value: s.frameTime ? s.frameTime.avg.toFixed(1) + ' ms' : (1000/avgFPS).toFixed(1) + ' ms', colorClass: 'color-cyan', small: true },
             { label: '1% Low', value: low1.toFixed(1) + ' FPS', colorClass: 'color-orange', small: true },
             { label: '0.1% Low', value: low01.toFixed(1) + ' FPS', colorClass: 'color-red', small: true },
-        ], s.fps.values, '#58a6ff');
+        ], s.fps.values, '#6aafcf');
     }
 
     // CPU Panel
@@ -797,7 +795,7 @@ function renderMetrics(analysis) {
         if (s.cpuUsage) items.push({ label: 'Avg Usage', value: s.cpuUsage.avg.toFixed(0) + '%', colorClass: 'color-green', small: true, range: `Peak ${s.cpuUsage.max.toFixed(0)}%` });
         if (s.cpuPower) items.push({ label: 'Avg Power', value: s.cpuPower.avg.toFixed(0) + ' W', colorClass: 'color-orange', small: true, range: `Peak ${s.cpuPower.max.toFixed(0)} W` });
 
-        panel('CPU', '#f85149', badge, items, s.cpuTemp?.values, '#f85149');
+        panel('CPU', '#c06050', badge, items, s.cpuTemp?.values, '#c06050');
     }
 
     // GPU Panel
@@ -814,7 +812,7 @@ function renderMetrics(analysis) {
         if (s.gpuPower) items.push({ label: 'Avg Power', value: s.gpuPower.avg.toFixed(0) + ' W', colorClass: 'color-orange', small: true, range: `Peak ${s.gpuPower.max.toFixed(0)} W` });
         if (s.gpuLoad) items.push({ label: 'GPU Load', value: s.gpuLoad.avg.toFixed(0) + '%', colorClass: 'color-cyan', small: true, range: `Peak ${s.gpuLoad.max.toFixed(0)}%` });
 
-        panel('GPU', '#bc8cff', badge, items, s.gpuTemp?.values, '#bc8cff');
+        panel('GPU', '#8a7ab8', badge, items, s.gpuTemp?.values, '#8a7ab8');
     }
 
     // System Panel
@@ -826,7 +824,7 @@ function renderMetrics(analysis) {
         if (s.gpuFan1) items.push({ label: 'GPU Fan', value: s.gpuFan1.avg.toFixed(0) + ' RPM', colorClass: 'color-green', small: true, range: `${s.gpuFan1.min.toFixed(0)} - ${s.gpuFan1.max.toFixed(0)} RPM` });
 
         if (items.length > 0) {
-            panel('System', '#39d2c0', null, items, s.liquidTemp?.values || s.ramUsage?.values, '#39d2c0');
+            panel('System', '#5a9a9a', null, items, s.liquidTemp?.values || s.ramUsage?.values, '#5a9a9a');
         }
     }
 }
@@ -859,7 +857,7 @@ function drawSparkline(canvas, data, color) {
 
     ctx.beginPath();
     ctx.strokeStyle = color;
-    ctx.lineWidth = 1.5;
+    ctx.lineWidth = 1;
     ctx.lineJoin = 'round';
 
     sampled.forEach((v, i) => {
@@ -869,19 +867,6 @@ function drawSparkline(canvas, data, color) {
         else ctx.lineTo(x, y);
     });
     ctx.stroke();
-
-    // Fill gradient below
-    const lastX = w;
-    const lastY = h - ((sampled[sampled.length - 1] - min) / range) * (h - 4) - 2;
-    ctx.lineTo(lastX, h);
-    ctx.lineTo(0, h);
-    ctx.closePath();
-
-    const grad = ctx.createLinearGradient(0, 0, 0, h);
-    grad.addColorStop(0, color + '30');
-    grad.addColorStop(1, color + '05');
-    ctx.fillStyle = grad;
-    ctx.fill();
 }
 
 // ============================================
@@ -899,37 +884,37 @@ function makeChartOptions(yLabel, suggestedMin) {
     return {
         responsive: true,
         maintainAspectRatio: false,
-        animation: { duration: 600 },
+        animation: { duration: 300 },
         interaction: { mode: 'index', intersect: false },
         plugins: {
             legend: {
                 position: 'top',
-                labels: { color: '#8b949e', font: { size: 11 }, boxWidth: 12, padding: 12 }
+                labels: { color: '#777', font: { size: 10, family: 'Consolas, SF Mono, monospace' }, boxWidth: 10, padding: 8 }
             },
             tooltip: {
-                backgroundColor: '#1c2333',
-                titleColor: '#e6edf3',
-                bodyColor: '#8b949e',
-                borderColor: '#30363d',
+                backgroundColor: '#1a1a1a',
+                titleColor: '#bbb',
+                bodyColor: '#888',
+                bodyFont: { family: 'Consolas, SF Mono, monospace', size: 11 },
+                borderColor: '#333',
                 borderWidth: 1,
-                padding: 10,
-                cornerRadius: 6,
+                padding: 8,
+                cornerRadius: 2,
             }
         },
         scales: {
             x: {
-                grid: { color: 'rgba(48,54,61,0.4)', drawBorder: false },
-                ticks: { color: '#484f58', font: { size: 10 }, maxTicksLimit: 10 },
-                title: { display: true, text: 'Time', color: '#484f58', font: { size: 11 } },
+                grid: { color: 'rgba(42,42,42,0.5)', drawBorder: false },
+                ticks: { color: '#4a4a4a', font: { size: 9, family: 'Consolas, SF Mono, monospace' }, maxTicksLimit: 10 },
             },
             y: {
-                grid: { color: 'rgba(48,54,61,0.4)', drawBorder: false },
-                ticks: { color: '#484f58', font: { size: 10 } },
-                title: { display: true, text: yLabel, color: '#484f58', font: { size: 11 } },
+                grid: { color: 'rgba(42,42,42,0.5)', drawBorder: false },
+                ticks: { color: '#4a4a4a', font: { size: 9, family: 'Consolas, SF Mono, monospace' } },
+                title: { display: true, text: yLabel, color: '#4a4a4a', font: { size: 10 } },
                 suggestedMin: suggestedMin,
             }
         },
-        elements: { point: { radius: 0 }, line: { tension: 0.3, borderWidth: 2 } },
+        elements: { point: { radius: 0 }, line: { tension: 0.2, borderWidth: 1.5 } },
     };
 }
 
@@ -952,13 +937,13 @@ function renderCharts(analysis) {
     // FPS Chart
     if (stats.fps) {
         const datasets = [
-            { label: 'FPS', data: subsample(stats.fps.values), borderColor: '#58a6ff', backgroundColor: 'rgba(88,166,255,0.1)', fill: true },
+            { label: 'FPS', data: subsample(stats.fps.values), borderColor: '#6aafcf', backgroundColor: 'transparent' },
         ];
         if (stats.fpsPresentedLow1) {
-            datasets.push({ label: '1% Low', data: subsample(stats.fpsPresentedLow1.values), borderColor: '#d29922', backgroundColor: 'transparent', borderDash: [4, 2] });
+            datasets.push({ label: '1% Low', data: subsample(stats.fpsPresentedLow1.values), borderColor: '#b89a3a', backgroundColor: 'transparent', borderDash: [4, 2] });
         }
         if (stats.fpsPresentedLow01) {
-            datasets.push({ label: '0.1% Low', data: subsample(stats.fpsPresentedLow01.values), borderColor: '#f85149', backgroundColor: 'transparent', borderDash: [2, 2] });
+            datasets.push({ label: '0.1% Low', data: subsample(stats.fpsPresentedLow01.values), borderColor: '#c06050', backgroundColor: 'transparent', borderDash: [2, 2] });
         }
         state.charts.fps = new Chart(document.getElementById('chart-fps'), {
             type: 'line', data: { labels, datasets }, options: makeChartOptions('FPS', 0),
@@ -968,10 +953,10 @@ function renderCharts(analysis) {
     // Temperature Chart
     {
         const datasets = [];
-        if (stats.cpuTemp) datasets.push({ label: 'CPU Temp', data: subsample(stats.cpuTemp.values), borderColor: '#f85149', backgroundColor: 'transparent' });
-        if (stats.gpuTemp) datasets.push({ label: 'GPU Temp', data: subsample(stats.gpuTemp.values), borderColor: '#bc8cff', backgroundColor: 'transparent' });
-        if (stats.gpuJunctionTemp) datasets.push({ label: 'VRAM Junction', data: subsample(stats.gpuJunctionTemp.values), borderColor: '#f778ba', backgroundColor: 'transparent', borderDash: [4, 2] });
-        if (stats.liquidTemp) datasets.push({ label: 'Liquid', data: subsample(stats.liquidTemp.values), borderColor: '#39d2c0', backgroundColor: 'transparent' });
+        if (stats.cpuTemp) datasets.push({ label: 'CPU Temp', data: subsample(stats.cpuTemp.values), borderColor: '#c06050', backgroundColor: 'transparent' });
+        if (stats.gpuTemp) datasets.push({ label: 'GPU Temp', data: subsample(stats.gpuTemp.values), borderColor: '#8a7ab8', backgroundColor: 'transparent' });
+        if (stats.gpuJunctionTemp) datasets.push({ label: 'VRAM Junction', data: subsample(stats.gpuJunctionTemp.values), borderColor: '#b07a8a', backgroundColor: 'transparent', borderDash: [4, 2] });
+        if (stats.liquidTemp) datasets.push({ label: 'Liquid', data: subsample(stats.liquidTemp.values), borderColor: '#5a9a9a', backgroundColor: 'transparent' });
         if (datasets.length > 0) {
             state.charts.temp = new Chart(document.getElementById('chart-temp'), {
                 type: 'line', data: { labels, datasets }, options: makeChartOptions('°C'),
@@ -982,8 +967,8 @@ function renderCharts(analysis) {
     // Clock Speeds Chart
     {
         const datasets = [];
-        if (stats.cpuClock) datasets.push({ label: 'CPU Clock', data: subsample(stats.cpuClock.values), borderColor: '#58a6ff', backgroundColor: 'transparent' });
-        if (stats.gpuClock) datasets.push({ label: 'GPU Clock', data: subsample(stats.gpuClock.values), borderColor: '#bc8cff', backgroundColor: 'transparent' });
+        if (stats.cpuClock) datasets.push({ label: 'CPU Clock', data: subsample(stats.cpuClock.values), borderColor: '#6aafcf', backgroundColor: 'transparent' });
+        if (stats.gpuClock) datasets.push({ label: 'GPU Clock', data: subsample(stats.gpuClock.values), borderColor: '#8a7ab8', backgroundColor: 'transparent' });
         if (datasets.length > 0) {
             state.charts.clocks = new Chart(document.getElementById('chart-clocks'), {
                 type: 'line', data: { labels, datasets }, options: makeChartOptions('MHz'),
@@ -994,10 +979,10 @@ function renderCharts(analysis) {
     // Power & Usage Chart (dual axis)
     {
         const datasets = [];
-        if (stats.cpuPower) datasets.push({ label: 'CPU Power', data: subsample(stats.cpuPower.values), borderColor: '#d29922', backgroundColor: 'rgba(210,153,34,0.1)', fill: true, yAxisID: 'y' });
-        if (stats.gpuPower) datasets.push({ label: 'GPU Power', data: subsample(stats.gpuPower.values), borderColor: '#f778ba', backgroundColor: 'rgba(247,120,186,0.1)', fill: true, yAxisID: 'y' });
-        if (stats.cpuUsage) datasets.push({ label: 'CPU Usage', data: subsample(stats.cpuUsage.values), borderColor: '#3fb950', backgroundColor: 'transparent', yAxisID: 'y1', borderDash: [4, 2] });
-        if (stats.gpuLoad) datasets.push({ label: 'GPU Load', data: subsample(stats.gpuLoad.values), borderColor: '#39d2c0', backgroundColor: 'transparent', yAxisID: 'y1', borderDash: [4, 2] });
+        if (stats.cpuPower) datasets.push({ label: 'CPU Power', data: subsample(stats.cpuPower.values), borderColor: '#b89a3a', backgroundColor: 'transparent', yAxisID: 'y' });
+        if (stats.gpuPower) datasets.push({ label: 'GPU Power', data: subsample(stats.gpuPower.values), borderColor: '#b07a8a', backgroundColor: 'transparent', yAxisID: 'y' });
+        if (stats.cpuUsage) datasets.push({ label: 'CPU Usage', data: subsample(stats.cpuUsage.values), borderColor: '#5a9a5a', backgroundColor: 'transparent', yAxisID: 'y1', borderDash: [4, 2] });
+        if (stats.gpuLoad) datasets.push({ label: 'GPU Load', data: subsample(stats.gpuLoad.values), borderColor: '#5a9a9a', backgroundColor: 'transparent', yAxisID: 'y1', borderDash: [4, 2] });
 
         if (datasets.length > 0) {
             const opts = makeChartOptions('Watts', 0);
@@ -1005,8 +990,8 @@ function renderCharts(analysis) {
             opts.scales.y1 = {
                 position: 'right',
                 grid: { drawOnChartArea: false },
-                ticks: { color: '#484f58', font: { size: 10 } },
-                title: { display: true, text: 'Usage %', color: '#484f58', font: { size: 11 } },
+                ticks: { color: '#4a4a4a', font: { size: 9, family: 'Consolas, SF Mono, monospace' } },
+                title: { display: true, text: '%', color: '#4a4a4a', font: { size: 10 } },
                 suggestedMin: 0,
                 suggestedMax: 100,
             };
@@ -1046,11 +1031,6 @@ function renderWorthChecking(items) {
         ` : '';
 
         el.innerHTML = `
-            <div class="wc-icon ${item.icon}">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
-                </svg>
-            </div>
             <div class="wc-content">
                 <div class="wc-title">${item.title}</div>
                 <div class="wc-detail">${item.detail}</div>
@@ -1121,9 +1101,9 @@ function renderAllStats(analysis) {
 // ============================================
 
 // Benchmark color grading: green = good, yellow = ok, red = bad
-const BM_GREEN = '#3fb950';
-const BM_YELLOW = '#d29922';
-const BM_RED = '#f85149';
+const BM_GREEN = '#5a9a5a';
+const BM_YELLOW = '#b89a3a';
+const BM_RED = '#c06050';
 
 function gradeMetric(type, value, context) {
     // context carries extra info for relative checks (e.g. avg fps for 1% low)
@@ -1199,15 +1179,15 @@ function gradeLabel(color) {
 }
 
 function gradeBgTint(color) {
-    if (color === BM_GREEN) return 'rgba(63,185,80,0.08)';
-    if (color === BM_YELLOW) return 'rgba(210,153,34,0.08)';
-    return 'rgba(248,81,73,0.08)';
+    if (color === BM_GREEN) return 'rgba(90,154,90,0.07)';
+    if (color === BM_YELLOW) return 'rgba(184,154,58,0.07)';
+    return 'rgba(192,96,80,0.07)';
 }
 
 function gradeBorder(color) {
-    if (color === BM_GREEN) return 'rgba(63,185,80,0.3)';
-    if (color === BM_YELLOW) return 'rgba(210,153,34,0.3)';
-    return 'rgba(248,81,73,0.3)';
+    if (color === BM_GREEN) return 'rgba(90,154,90,0.25)';
+    if (color === BM_YELLOW) return 'rgba(184,154,58,0.25)';
+    return 'rgba(192,96,80,0.25)';
 }
 
 function buildExportMetrics(stats) {
@@ -1336,14 +1316,14 @@ async function exportSummaryImage() {
     // Copy export-template class styles inline for the clone
     const card = captureHost.querySelector('.export-card');
     if (card) {
-        card.style.cssText = 'padding:40px;background:linear-gradient(135deg,#0d1117 0%,#161b22 100%);color:#e6edf3;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;';
+        card.style.cssText = 'padding:36px;background:#111;color:#bbb;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;';
     }
     document.body.appendChild(captureHost);
 
     try {
         await new Promise(r => setTimeout(r, 150));
         const canvas = await html2canvas(captureHost, {
-            backgroundColor: '#0d1117',
+            backgroundColor: '#111',
             scale: 2,
             useCORS: true,
             logging: false,
@@ -1371,7 +1351,7 @@ async function exportSummaryImage() {
         captureHost.remove();
         hideLoading();
         btn.disabled = false;
-        btn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Export Summary`;
+        btn.textContent = 'Export Summary';
     }
 }
 
@@ -1400,24 +1380,21 @@ function drawExportCanvas(analysis) {
     ctx.scale(2, 2);
 
     // Background
-    const bgGrad = ctx.createLinearGradient(0, 0, W, H);
-    bgGrad.addColorStop(0, '#0d1117');
-    bgGrad.addColorStop(1, '#161b22');
-    ctx.fillStyle = bgGrad;
+    ctx.fillStyle = '#111';
     ctx.fillRect(0, 0, W, H);
 
     // Title
-    ctx.font = 'bold 26px -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif';
-    ctx.fillStyle = '#58a6ff';
-    ctx.fillText(analysis.name.replace(/\.csv$/i, '') + ' Benchmark', PAD, PAD + 34);
+    ctx.font = '600 22px -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif';
+    ctx.fillStyle = '#ccc';
+    ctx.fillText(analysis.name.replace(/\.csv$/i, '') + ' Benchmark', PAD, PAD + 30);
 
-    ctx.font = '13px -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif';
-    ctx.fillStyle = '#8b949e';
-    const metaText = `${analysis.date}  |  Duration: ${formatDuration(analysis.duration)}  |  ${analysis.rows.length} samples`;
-    ctx.fillText(metaText, PAD, PAD + 58);
+    ctx.font = '12px Consolas, SF Mono, monospace';
+    ctx.fillStyle = '#666';
+    const metaText = `${analysis.date}  |  ${formatDuration(analysis.duration)}  |  ${analysis.rows.length} samples`;
+    ctx.fillText(metaText, PAD, PAD + 52);
 
     // Divider
-    ctx.strokeStyle = '#30363d';
+    ctx.strokeStyle = '#2a2a2a';
     ctx.lineWidth = 1;
     ctx.beginPath();
     ctx.moveTo(PAD, PAD + headerH - 10);
@@ -1432,86 +1409,79 @@ function drawExportCanvas(analysis) {
         const x = PAD + col * (cellW + 16);
         const y = yOff + row * (cellH + 16);
 
-        // Card background with color tint
-        ctx.fillStyle = gradeBgTint(m.color);
-        roundRect(ctx, x, y, cellW, cellH, 8);
+        // Card background
+        ctx.fillStyle = '#191919';
+        roundRect(ctx, x, y, cellW, cellH, 3);
         ctx.fill();
-        ctx.strokeStyle = '#21262d';
-        roundRect(ctx, x, y, cellW, cellH, 8);
+        ctx.strokeStyle = '#2a2a2a';
+        roundRect(ctx, x, y, cellW, cellH, 3);
         ctx.stroke();
 
         // Left color accent bar
         ctx.fillStyle = m.color;
-        ctx.beginPath();
-        ctx.moveTo(x + 4, y);
-        ctx.lineTo(x + 4, y + cellH);
-        ctx.lineTo(x, y + cellH - 8);
-        ctx.quadraticCurveTo(x, y + cellH, x, y + cellH - 8);
-        ctx.lineTo(x, y + 8);
-        ctx.quadraticCurveTo(x, y, x + 4, y);
-        ctx.closePath();
-        ctx.fill();
+        ctx.fillRect(x, y + 1, 3, cellH - 2);
 
         // Label
-        ctx.font = '600 10px -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif';
-        ctx.fillStyle = '#8b949e';
-        ctx.fillText(m.label.toUpperCase(), x + 16, y + 22);
+        ctx.font = '600 9px -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif';
+        ctx.fillStyle = '#666';
+        ctx.fillText(m.label.toUpperCase(), x + 14, y + 20);
 
         // Grade badge (top right)
         if (m.grade) {
-            ctx.font = 'bold 9px -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif';
-            const badgeW = ctx.measureText(m.grade).width + 12;
-            const bx = x + cellW - badgeW - 10;
+            ctx.font = '600 8px Consolas, SF Mono, monospace';
+            const badgeW = ctx.measureText(m.grade).width + 10;
+            const bx = x + cellW - badgeW - 8;
             const by = y + 10;
             ctx.fillStyle = gradeBgTint(m.color);
-            roundRect(ctx, bx, by, badgeW, 18, 9);
+            roundRect(ctx, bx, by, badgeW, 16, 2);
             ctx.fill();
-            ctx.strokeStyle = gradeBorder(m.color);
-            roundRect(ctx, bx, by, badgeW, 18, 9);
-            ctx.stroke();
             ctx.fillStyle = m.color;
-            ctx.fillText(m.grade, bx + 6, by + 13);
+            ctx.fillText(m.grade, bx + 5, by + 12);
         }
 
         // Value
-        ctx.font = 'bold 28px -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif';
+        ctx.font = '600 24px Consolas, SF Mono, monospace';
         ctx.fillStyle = m.color;
-        ctx.fillText(m.value, x + 16, y + 56);
+        ctx.fillText(m.value, x + 14, y + 52);
 
         // Sub
-        ctx.font = '11px -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif';
-        ctx.fillStyle = '#484f58';
-        ctx.fillText(m.sub, x + 16, y + 76);
+        ctx.font = '10px Consolas, SF Mono, monospace';
+        ctx.fillStyle = '#4a4a4a';
+        ctx.fillText(m.sub, x + 14, y + 72);
     });
 
     // Warnings
     if (analysis.anomalies.length > 0) {
         const wy = yOff + rows * (cellH + 16) + 8;
-        ctx.fillStyle = 'rgba(248,81,73,0.06)';
-        roundRect(ctx, PAD, wy, W - PAD * 2, warningH - 8, 8);
-        ctx.fill();
 
-        ctx.font = '600 12px -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif';
-        ctx.fillStyle = '#d29922';
-        ctx.fillText('Attention Items', PAD + 16, wy + 20);
+        // left border accent
+        ctx.fillStyle = '#c06050';
+        ctx.fillRect(PAD, wy, 3, warningH - 8);
 
-        ctx.font = '11px -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif';
-        ctx.fillStyle = '#8b949e';
+        ctx.fillStyle = 'rgba(192,96,80,0.05)';
+        ctx.fillRect(PAD + 3, wy, W - PAD * 2 - 3, warningH - 8);
+
+        ctx.font = '600 10px -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif';
+        ctx.fillStyle = '#b89a3a';
+        ctx.fillText('ATTENTION', PAD + 14, wy + 18);
+
+        ctx.font = '10px -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif';
+        ctx.fillStyle = '#777';
         analysis.anomalies.forEach((a, i) => {
-            ctx.fillText('\u2022  ' + a.message, PAD + 16, wy + 40 + i * 22);
+            ctx.fillText('-  ' + a.message, PAD + 14, wy + 36 + i * 20);
         });
     }
 
     // Footer
     const fy = H - PAD - 10;
-    ctx.strokeStyle = '#21262d';
+    ctx.strokeStyle = '#2a2a2a';
     ctx.beginPath();
     ctx.moveTo(PAD, fy - 16);
     ctx.lineTo(W - PAD, fy - 16);
     ctx.stroke();
 
-    ctx.font = '11px -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif';
-    ctx.fillStyle = '#484f58';
+    ctx.font = '10px -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif';
+    ctx.fillStyle = '#4a4a4a';
     ctx.fillText('HWiNFO Benchmark Analyzer', PAD, fy);
     const dateStr = 'Generated ' + new Date().toLocaleDateString();
     const dateW = ctx.measureText(dateStr).width;

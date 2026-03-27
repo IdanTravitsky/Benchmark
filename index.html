@@ -12,25 +12,11 @@
     <!-- Upload View -->
     <div id="upload-view">
         <div class="upload-container">
-            <div class="upload-logo">
-                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                    <polyline points="17 8 12 3 7 8"/>
-                    <line x1="12" y1="3" x2="12" y2="15"/>
-                </svg>
-            </div>
             <h1>HWiNFO Benchmark Analyzer</h1>
-            <p class="upload-subtitle">Drop your HWiNFO64 CSV log files here to analyze benchmark data</p>
+            <p class="upload-subtitle">Analyze HWiNFO64 CSV logs</p>
             <div id="drop-zone" tabindex="0" role="button" aria-label="Upload CSV files">
                 <div class="drop-zone-content">
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                        <polyline points="14 2 14 8 20 8"/>
-                        <line x1="12" y1="18" x2="12" y2="12"/>
-                        <line x1="9" y1="15" x2="12" y2="12"/>
-                        <line x1="15" y1="15" x2="12" y2="12"/>
-                    </svg>
-                    <span>Click or drag CSV files here</span>
+                    <span class="drop-zone-label">Drop CSV files here or click to browse</span>
                     <span class="drop-hint">Supports multiple files</span>
                 </div>
             </div>
@@ -43,22 +29,12 @@
         <!-- Top Bar -->
         <header id="top-bar">
             <div class="top-bar-left">
-                <button id="back-btn" title="Upload new files">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/>
-                    </svg>
-                </button>
+                <button id="back-btn" title="Upload new files">&larr;</button>
                 <div class="file-tabs" id="file-tabs"></div>
             </div>
             <div class="top-bar-right">
                 <div class="run-info" id="run-info"></div>
-                <button id="export-btn" class="btn-primary">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                        <polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
-                    </svg>
-                    Export Summary
-                </button>
+                <button id="export-btn" class="btn-export">Export Summary</button>
             </div>
         </header>
 
@@ -96,11 +72,8 @@
         <section id="worth-checking-section" class="hidden">
             <div class="worth-checking-container">
                 <div class="worth-checking-header">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
-                    </svg>
                     <span>Worth Checking</span>
-                    <span class="worth-checking-subtitle">Stats that aren't alarming but may be worth a look</span>
+                    <span class="worth-checking-subtitle">- not alarming, but may be worth a look</span>
                 </div>
                 <div id="worth-checking-items"></div>
             </div>
@@ -110,7 +83,7 @@
         <section id="all-stats-section">
             <button id="toggle-all-stats" class="section-toggle">
                 <span>All Statistics</span>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <polyline points="6 9 12 15 18 9"/>
                 </svg>
             </button>
